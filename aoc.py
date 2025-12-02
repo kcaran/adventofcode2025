@@ -102,7 +102,7 @@ class AoCInput:
         result = subprocess.run(
             command, capture_output=True, text=True, check=True
         )
-        return result.stdout
+        return result.stdout.strip()
 
     def lines(self) -> list[str]:
         """
