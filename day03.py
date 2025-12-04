@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+
+#
+# lessons from axlerod:
+#   * "The code works, but it reads like it was translated from a language like C or Java."
+#   * max( list_item ) is a built-in function
+#   * for max_val(), wanted me to do
+#       return [
+#           start + i for i, digit in enumerate(search_slice) if digit == max_digit
+#       ]
+#   * yield and yield from instead of return
+
 import re
 import sys
 
@@ -42,7 +53,7 @@ class Day03:
             end = len(bank) - (lenj - len(num) - 1)
             nextd = self.max_val( bank, start, end )
             for idx in nextd:
-              nextnums.extend( self.joltage_b( bank, [num + bank[idx]], idx + 1 ) )
+                 nextnums.extend( self.joltage_b( bank, [num + bank[idx]], idx + 1 ) )
 
         return nextnums
 
@@ -54,10 +65,7 @@ class Day03:
         self.sum_b = 0
         for bank in self.input:
             nums = self.joltage_b(bank, [''], 0)
-            max_num = nums[0]
-            for n in nums:
-                max_num = n if (n > max_num) else max_num
-            self.sum_b += int( max_num )
+            self.sum_b += int( max(nums) )
 
         return self
 
