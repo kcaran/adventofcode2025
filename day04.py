@@ -4,6 +4,8 @@
 # lessons from axlerod:
 #   * Create a twod array (list)
 #   * walrus while (rem := add()): - Introduced in 3.8!!
+#   * use self.grid instead of self.map for variable name
+#
 
 import re
 import sys
@@ -15,7 +17,7 @@ class Day04:
     def __init__(self, input_file: str):
         self.input = AoCInput(input_file).lines()
         self.size = len( self.input )
-        self.map = [ list( line.strip() ) for line in self.input ]
+        self.grid = [ list( line.strip() ) for line in self.input ]
 
     def adjacents(self, row, col):
         # Don't count ourselves
@@ -23,30 +25,30 @@ class Day04:
         for y in range( row - 1, row + 2 ):
             for x in range( col - 1, col + 2 ):
                 if (y >= 0 and y < self.size and x >= 0 and x < self.size):
-                    adj += 1 if (self.map[y][x] == '@') else 0
+                    adj += 1 if (self.grid[y][x] == '@') else 0
         return adj
 
     def forklifts(self):
-        forks = [];
+        forks = []
         for y in range( 0, self.size ):
             for x in range( 0, self.size ):
-                if (self.map[y][x] == '@' and self.adjacents( y, x ) < 4):
+                if (self.grid[y][x] == '@' and self.adjacents( y, x ) < 4):
                     forks.append( [ y, x ] )
 
         # Pick up the papaer
         for f in forks:
-           self.map[f[0]][f[1]] = '.'
+           self.grid[f[0]][f[1]] = '.'
 
-        return len(forks);
+        return len(forks)
 
     def solve(self):
-        self.parta = self.forklifts();
+        self.parta = self.forklifts()
         self.partb = self.parta
 
         while (removed := self.forklifts()):
           self.partb += removed
 
-        return self;
+        return self
 
 def main():
     # Check if a command-line argument was provided.
