@@ -102,7 +102,8 @@ class AoCInput:
         result = subprocess.run(
             command, capture_output=True, text=True, check=True
         )
-        return result.stdout.strip()
+        # Python doesn't have a chomp() function!
+        return re.sub( r"\r?\n$", "", result.stdout )
 
     def lines(self) -> list[str]:
         """
